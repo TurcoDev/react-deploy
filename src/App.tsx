@@ -1,14 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [hello, setHello] = useState('')
+
+
+  useEffect(() => {
+    console.log('App component mounted')
+    fetch('https://nest-deploy-3wq6.onrender.com/')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        setHello(data.greeting)
+      })
+  }, [])
 
   return (
     <>
       <div>
+        <h1>{hello}</h1>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
